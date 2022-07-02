@@ -4,14 +4,15 @@ import json
 import pandas as pd
 
 
-lista = ["Doenças Negligenciadas", "Doença de Chagas", "Noma" ,"Hepatite C" ,"Acesso a Medicamentos","Acesso a Propriedade Intelectual",
-                "Crise climática", "Desastres Socioambientais","Desastre Ambiental" ,"Ajuda Humanitária", "Migração","Refugiados"]
+lista = ["Aborto","Doenças Negligenciadas", "Doença de Chagas", "Noma" ,"Hepatite C" ,"Acesso a Medicamentos","Acesso a Propriedade Intelectual",
+                "Crise climática","Desastre Ambiental" ,"Ajuda Humanitária", "Migração","Refugiados"]
 
 def cria_busca(word = "brasil"):
 
         url = config.urlNewsHot
         texto = word.lower().replace(' ','%20')
-        tempo = '&from=2022-06-01&to=2022-06-30&sortBy=popularity&'
+        tempo = '&from=2022-06-05&to=2022-06-02&sortBy=popularity&'
+        # print(url+f'?q={texto}&language=pt{tempo}apiKey={config.apiKey}')
 
         response = requests.get(url+f'?q={texto}&language=pt{tempo}apiKey={config.apiKey}')
 
@@ -33,6 +34,6 @@ def cria_busca(word = "brasil"):
         allinfo.to_csv(f'response_news_{texto.replace("%20","_")}.csv')
 
 
-for i in lista:
+for i in lista[8:]:
         print('Buscando por >>>',i)
         cria_busca(i)
