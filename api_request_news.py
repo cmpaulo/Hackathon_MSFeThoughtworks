@@ -18,6 +18,7 @@ def cria_busca(word = "brasil"):
 
         print(response)
 
+
         data = pd.DataFrame(response.json()['articles'])
 
         ndata = data.drop(['source'], axis=1)
@@ -29,12 +30,15 @@ def cria_busca(word = "brasil"):
                 sdata.loc[len(sdata),['id','name'] ] = [source['id'],source['name']]
 
         allinfo = pd.concat([sdata,ndata], axis='columns')
-        print(allinfo[:1].to_json(orient="records"))
+        # print(allinfo[:1].to_json(orient="records"))
+
+        with open(f'resp_news_{texto.replace("%20","_")}.json', 'w') as outff:
+                outff.write(allinfo.to_json(orient='records', lines=True))
 
         # salva os dados e manipula em pandas
         allinfo.to_csv(f'response_news_{texto.replace("%20","_")}.csv')
+        
 
-
-for i in lista:
+for i in lista[1:]:
         print('Buscando por >>>',i)
         cria_busca(i)
